@@ -14,7 +14,7 @@ namespace Genial.CashFlow.Api.Controllers
     {
         [HttpGet("statement")]
         public async Task<ActionResult<GetStatementQueryResult>> GetStatementAsync(
-            [FromRoute] GetStatementQuery query, 
+            [FromQuery] GetStatementQuery query, 
             [FromServices] IMediator mediator)
         {
             return await mediator.Send(query);
@@ -22,7 +22,7 @@ namespace Genial.CashFlow.Api.Controllers
 
         [HttpGet("balance")]
         public async Task<ActionResult<GetBalanceQueryResult>> GetBalanceAsync(
-            [FromRoute] GetBalanceQuery query,
+            [FromQuery] GetBalanceQuery query,
             [FromServices] IMediator mediator)
         {
             return await mediator.Send(query);
