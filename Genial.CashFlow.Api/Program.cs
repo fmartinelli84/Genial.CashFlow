@@ -1,6 +1,7 @@
 using Genial.CashFlow.Application;
 using Genial.CashFlow.Domain;
 using Genial.CashFlow.Infrastructure;
+using Genial.CashFlow.Infrastructure.Data;
 using Genial.Framework.Api;
 using Genial.Framework.Data;
 using Genial.Framework.Logging;
@@ -24,11 +25,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseApi(app.Environment);
 
-//// Create a migrate database (for test only)
-//using var scope = app.Services.CreateScope();
-//scope.ServiceProvider
-//    .GetRequiredService<CustomersDbContext>()
-//    .Database
-//    .Migrate();
+// Create a migrate database
+app.MigrateDatabase();
 
 app.Run();

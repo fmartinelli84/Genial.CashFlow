@@ -1,4 +1,5 @@
-﻿using Genial.CashFlow.Infrastructure.Repositories;
+﻿using Genial.CashFlow.Infrastructure.Data;
+using Genial.CashFlow.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,9 @@ namespace Genial.CashFlow.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddSingleton<DapperContext>();
+            services.AddSingleton<Database>();
+
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IBalanceRepository, BalanceRepository>();
 
