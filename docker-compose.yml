@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+  genial.cashflow.api:
+    depends_on:
+      genial.cashflow.logging:
+        condition: service_healthy
+      genial.cashflow.database:
+        condition: service_healthy
+    image: ${DOCKER_REGISTRY-}genial-cashflow-api
+    build:
+      context: .
+      dockerfile: Genial.CashFlow.Api/Dockerfile
+
+  genial.cashflow.logging:
+    image: ${DOCKER_REGISTRY-}genial-cashflow-logging
+    build:
+      context: .
+      dockerfile: Genial.CashFlow.Logging/Dockerfile
+    environment:
+      ACCEPT_EULA: "Y"
+    ports:
+      - "55902:80"
+    volumes:
+      - ${APPDATA}/genial/cashflow/logging:/data
+
+  genial.cashflow.database:
+    image: ${DOCKER_REGISTRY-}genial-cashflow-database
+    build:
+      context: .
+      dockerfile: Genial.CashFlow.Database/Dockerfile
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "d93@1FfF#9756"
+    ports:
+      - "55903:1433"
+    volumes:
+      - ${APPDATA}/genial/cashflow/database:/var/opt/mssql/data

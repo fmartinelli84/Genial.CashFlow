@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "genial.cashflow.api",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
+      "serviceActions": {
+        "genial.cashflow.api": "StartDebugging",
+        "genial.cashflow.database": "StartWithoutDebugging",
+        "genial.cashflow.logging": "StartWithoutDebugging"
+      }
+    }
+  }
+}

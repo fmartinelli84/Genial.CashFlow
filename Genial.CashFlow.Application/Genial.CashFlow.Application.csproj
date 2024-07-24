@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Genial.CashFlow.Application.Dtos\Genial.CashFlow.Application.Dtos.csproj" />
+    <ProjectReference Include="..\Genial.CashFlow.Domain\Genial.CashFlow.Domain.csproj" />
+    <ProjectReference Include="..\Genial.Framework\Genial.Framework.csproj" />
+  </ItemGroup>
+
+</Project>

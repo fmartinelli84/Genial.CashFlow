@@ -1,0 +1,91 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genial.CashFlow.Api", "Genial.CashFlow.Api\Genial.CashFlow.Api.csproj", "{1A34D9A7-A548-4782-B6CC-C56632A844ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genial.Framework", "Genial.Framework\Genial.Framework.csproj", "{F3191C6E-1F9A-4BFE-A1E1-82DA2C5B68CD}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B3BE5645-4CDC-4D62-BB60-067863F17CA0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Presentation", "1. Presentation", "{DE3862AB-0592-4E84-BC67-573D0A9FB8AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Application", "2. Application", "{184C5CA1-7321-40BB-9581-56302D993352}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6. Framework", "6. Framework", "{F54E56FC-4AFD-41A7-A358-47C1920C5A0C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7. Logging", "7. Logging", "{789FF533-231A-4D93-99F4-F7BB3E735374}"
+	ProjectSection(SolutionItems) = preProject
+		Genial.CashFlow.Logging\Dockerfile = Genial.CashFlow.Logging\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8. Database", "8. Database", "{50F5DC76-97E0-445D-B18B-DF670C3D8084}"
+	ProjectSection(SolutionItems) = preProject
+		Genial.CashFlow.Database\Dockerfile = Genial.CashFlow.Database\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Infrastructure", "4. Infrastructure", "{3EB4D3DC-86EE-43F3-A6F5-F37D75E6EFC8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genial.CashFlow.Application", "Genial.CashFlow.Application\Genial.CashFlow.Application.csproj", "{6E3008DD-D6CB-4727-BA93-A182758C0FF1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genial.CashFlow.Application.Dtos", "Genial.CashFlow.Application.Dtos\Genial.CashFlow.Application.Dtos.csproj", "{424FCECE-38D1-4AF0-8767-F389974C3E13}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genial.CashFlow.Infrastructure", "Genial.CashFlow.Infrastructure\Genial.CashFlow.Infrastructure.csproj", "{DAC76073-6FF4-4A21-AB80-09A0F0D4E3F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Domain", "3. Domain", "{B20C3D8E-2093-4B5A-BDDF-7D09E960BBE4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genial.CashFlow.Domain", "Genial.CashFlow.Domain\Genial.CashFlow.Domain.csproj", "{06E21C21-F8EC-49AE-A023-072BF0862DB6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Tests", "5. Tests", "{F484F673-B63F-40A7-A70B-8705FE503C10}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A34D9A7-A548-4782-B6CC-C56632A844ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A34D9A7-A548-4782-B6CC-C56632A844ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A34D9A7-A548-4782-B6CC-C56632A844ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A34D9A7-A548-4782-B6CC-C56632A844ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3191C6E-1F9A-4BFE-A1E1-82DA2C5B68CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3191C6E-1F9A-4BFE-A1E1-82DA2C5B68CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3191C6E-1F9A-4BFE-A1E1-82DA2C5B68CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3191C6E-1F9A-4BFE-A1E1-82DA2C5B68CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3BE5645-4CDC-4D62-BB60-067863F17CA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3BE5645-4CDC-4D62-BB60-067863F17CA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3BE5645-4CDC-4D62-BB60-067863F17CA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3BE5645-4CDC-4D62-BB60-067863F17CA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E3008DD-D6CB-4727-BA93-A182758C0FF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E3008DD-D6CB-4727-BA93-A182758C0FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E3008DD-D6CB-4727-BA93-A182758C0FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E3008DD-D6CB-4727-BA93-A182758C0FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{424FCECE-38D1-4AF0-8767-F389974C3E13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{424FCECE-38D1-4AF0-8767-F389974C3E13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{424FCECE-38D1-4AF0-8767-F389974C3E13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{424FCECE-38D1-4AF0-8767-F389974C3E13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAC76073-6FF4-4A21-AB80-09A0F0D4E3F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAC76073-6FF4-4A21-AB80-09A0F0D4E3F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAC76073-6FF4-4A21-AB80-09A0F0D4E3F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAC76073-6FF4-4A21-AB80-09A0F0D4E3F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06E21C21-F8EC-49AE-A023-072BF0862DB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06E21C21-F8EC-49AE-A023-072BF0862DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06E21C21-F8EC-49AE-A023-072BF0862DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06E21C21-F8EC-49AE-A023-072BF0862DB6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1A34D9A7-A548-4782-B6CC-C56632A844ED} = {DE3862AB-0592-4E84-BC67-573D0A9FB8AF}
+		{F3191C6E-1F9A-4BFE-A1E1-82DA2C5B68CD} = {F54E56FC-4AFD-41A7-A358-47C1920C5A0C}
+		{6E3008DD-D6CB-4727-BA93-A182758C0FF1} = {184C5CA1-7321-40BB-9581-56302D993352}
+		{424FCECE-38D1-4AF0-8767-F389974C3E13} = {184C5CA1-7321-40BB-9581-56302D993352}
+		{DAC76073-6FF4-4A21-AB80-09A0F0D4E3F8} = {3EB4D3DC-86EE-43F3-A6F5-F37D75E6EFC8}
+		{06E21C21-F8EC-49AE-A023-072BF0862DB6} = {B20C3D8E-2093-4B5A-BDDF-7D09E960BBE4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {787F13C0-34D1-4D1C-B7E1-97A38038A741}
+	EndGlobalSection
+EndGlobal
