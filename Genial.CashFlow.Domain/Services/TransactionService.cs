@@ -19,12 +19,18 @@ namespace Genial.CashFlow.Domain.Services
             this.transactionRepository = transactionRepository;
         }
 
-        public async Task<GetStatementQueryResult> GetStatementAsync(GetStatementQuery query)
+        public async Task<GetStatementQueryResult> GetStatementAsync(GetStatementQuery request)
         {
-            return await this.transactionRepository.GetStatementAsync(query);
+            return await this.transactionRepository.GetStatementAsync(request);
         }
 
-        public async Task<TransactionDto> CreateAsync(CreateTransactionCommand command)
+        public async Task<GetBalanceQueryResult> GetBalanceAsync(GetBalanceQuery request)
+        {
+            return await this.transactionRepository.GetBalanceAsync(request);
+        }
+
+
+        public async Task<TransactionDto> CreateAsync(CreateTransactionCommand request)
         {
             throw new NotImplementedException();
         }

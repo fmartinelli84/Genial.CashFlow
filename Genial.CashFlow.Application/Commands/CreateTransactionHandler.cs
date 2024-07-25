@@ -1,5 +1,6 @@
 ﻿using Genial.CashFlow.Application.Dtos;
 using Genial.CashFlow.Application.Dtos.Commands;
+using Genial.CashFlow.Domain.Services;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,16 @@ namespace Genial.CashFlow.Application.Commands
 {
     public class CreateTransactionHandler : IRequestHandler<CreateTransactionCommand, TransactionDto?>
     {
-        public CreateTransactionHandler()
+        private readonly ITransactionService transactionService;
+
+        public CreateTransactionHandler(ITransactionService transactionService)
         {
+            this.transactionService = transactionService;
         }
 
         public async Task<TransactionDto?> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await this.transactionService.CreateAsync(request);
         }
     }
 }

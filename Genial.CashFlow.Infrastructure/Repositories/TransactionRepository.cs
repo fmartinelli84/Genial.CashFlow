@@ -14,7 +14,12 @@ namespace Genial.CashFlow.Infrastructure.Repositories
         {
         }
 
-        public async Task<GetStatementQueryResult> GetStatementAsync(GetStatementQuery query)
+        public async Task<GetStatementQueryResult> GetStatementAsync(GetStatementQuery request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<GetBalanceQueryResult> GetBalanceAsync(GetBalanceQuery request)
         {
             throw new NotImplementedException();
         }

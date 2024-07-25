@@ -20,7 +20,6 @@ namespace Genial.CashFlow.Infrastructure
             services.AddFluentMigrator(configuration, Assembly.GetExecutingAssembly());
 
             services.AddScoped<ITransactionRepository, TransactionRepository>();
-            services.AddScoped<IBalanceRepository, BalanceRepository>();
 
             return services;
         }

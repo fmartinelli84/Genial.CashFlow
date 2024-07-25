@@ -16,7 +16,6 @@ namespace Genial.CashFlow.Domain
         public static IServiceCollection AddDomain(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<ITransactionService, TransactionService>();
-            services.AddScoped<IBalanceService, BalanceService>();
 
             return services;
         }

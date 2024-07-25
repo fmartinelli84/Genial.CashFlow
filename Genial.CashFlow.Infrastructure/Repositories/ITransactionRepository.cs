@@ -4,6 +4,8 @@ namespace Genial.CashFlow.Infrastructure.Repositories
 {
     public interface ITransactionRepository
     {
-        Task<GetStatementQueryResult> GetStatementAsync(GetStatementQuery query);
+        Task<GetStatementQueryResult> GetStatementAsync(GetStatementQuery request);
+        Task<GetBalanceQueryResult> GetBalanceAsync(GetBalanceQuery request);
+
     }
 }

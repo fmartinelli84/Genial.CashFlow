@@ -6,7 +6,9 @@ namespace Genial.CashFlow.Domain.Services
 {
     public interface ITransactionService
     {
-        Task<GetStatementQueryResult> GetStatementAsync(GetStatementQuery query);
-        Task<TransactionDto> CreateAsync(CreateTransactionCommand command);
+        Task<GetStatementQueryResult> GetStatementAsync(GetStatementQuery request);
+        Task<GetBalanceQueryResult> GetBalanceAsync(GetBalanceQuery request);
+
+        Task<TransactionDto> CreateAsync(CreateTransactionCommand request);        
     }
 }

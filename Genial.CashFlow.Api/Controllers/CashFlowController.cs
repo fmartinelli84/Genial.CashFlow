@@ -14,26 +14,26 @@ namespace Genial.CashFlow.Api.Controllers
     {
         [HttpGet("statement")]
         public async Task<ActionResult<GetStatementQueryResult>> GetStatementAsync(
-            [FromQuery] GetStatementQuery query, 
+            [FromQuery] GetStatementQuery request, 
             [FromServices] IMediator mediator)
         {
-            return await mediator.Send(query);
+            return await mediator.Send(request);
         }
 
         [HttpGet("balance")]
         public async Task<ActionResult<GetBalanceQueryResult>> GetBalanceAsync(
-            [FromQuery] GetBalanceQuery query,
+            [FromQuery] GetBalanceQuery request,
             [FromServices] IMediator mediator)
         {
-            return await mediator.Send(query);
+            return await mediator.Send(request);
         }
 
         [HttpPost("transactions")]
         public async Task<ActionResult<TransactionDto?>> CreateTransactionAsync(
-            [FromBody] CreateTransactionCommand command,
+            [FromBody] CreateTransactionCommand request,
             [FromServices] IMediator mediator)
         {
-            return await mediator.Send(command);
+            return await mediator.Send(request);
         }
     }
 }
