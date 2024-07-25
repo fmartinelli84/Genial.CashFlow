@@ -110,7 +110,7 @@ namespace Genial.CashFlow.Infrastructure.Repositories
                     request);
 
             if (!results.Any())
-                throw new BusinessException("Cliente ou conta corrente não encontrados.");
+                throw new NotFoundBusinessException("Cliente ou conta corrente não encontrados.");
 
             return results.First();
         }

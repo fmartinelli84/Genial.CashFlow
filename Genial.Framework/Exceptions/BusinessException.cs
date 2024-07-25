@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Genial.Framework.Exceptions
 {
+    [ExcludeFromCodeCoverage]
     public class BusinessException : ApplicationException
     {
         public BusinessException()
@@ -24,37 +23,59 @@ namespace Genial.Framework.Exceptions
             AddError(message);
         }
 
-        public BusinessException(string code, string message)
-            : base(message)
+        public BusinessException(int code, string message)
+            : this(message)
         {
-            AddError(code, message);
+            Code = code;
         }
 
-        public BusinessException(string code, string message, Exception innerException)
-            : base(message, innerException)
+        public BusinessException(int code, string message, Exception innerException)
+            : this(message, innerException)
         {
-            AddError(code, message);
+            Code = code;
         }
 
-        private List<ErrorDetail> errors = new List<ErrorDetail>();
-        public List<ErrorDetail> Errors
+        public BusinessException(int code)
+            : base()
+        {
+            Code = code;
+        }
+
+        public BusinessException(int code, Exception innerException)
+            : base(null, innerException)
+        {
+            Code = code;
+        }
+
+        public BusinessException(ProblemDetails problemDetails)
+            : base(problemDetails?.Title)
+        {
+            Code = problemDetails?.Status;
+
+            if (problemDetails is BusinessProblemDetails businessProblemDetails)
+                errors = businessProblemDetails.Errors.ToList();
+        }
+
+        public BusinessException(ProblemDetails problemDetails, Exception innerException)
+            : base(problemDetails?.Title, innerException)
+        {
+            Code = problemDetails?.Status;
+
+            if (problemDetails is BusinessProblemDetails businessProblemDetails)
+                errors = businessProblemDetails.Errors.ToList();
+        }
+
+        public int? Code { get; protected set; }
+
+        private List<string> errors = new List<string>();
+        public IEnumerable<string> Errors
         {
             get { return errors; }
         }
 
         public BusinessException AddError(string message)
         {
-            return AddError(null, message);
-        }
-
-        public BusinessException AddError(string? code, string message)
-        {
-            errors.Add(new ErrorDetail()
-            {
-                Type = ErrorType.Business,
-                Code = code,
-                Message = message,
-            });
+            errors.Add(message);
 
             return this;
         }

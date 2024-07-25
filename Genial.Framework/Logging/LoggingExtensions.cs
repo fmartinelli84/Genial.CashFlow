@@ -37,9 +37,7 @@ namespace Genial.Framework.Logging
                     .WriteTo.Debug()
                     .WriteTo.Console()
                     .WriteTo.Conditional(
-                        logEvent =>
-                            logEvent.Exception is not BusinessException ||
-                            logEvent.Exception is BusinessException businessException && businessException.Errors.Any(error => error.Type == ErrorType.Unhandled),
+                        logEvent => true,
                         config =>
                             config.Seq(
                                 serverUrl: seqOptions.Address.ToString(),

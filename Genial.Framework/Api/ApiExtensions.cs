@@ -84,23 +84,7 @@ namespace Genial.Framework.Api
 
         public static IApplicationBuilder UseApi(this IApplicationBuilder app, IHostEnvironment env)
         {
-            app.UseExceptionHandler(appError =>
-            {
-                appError.Run(async context =>
-                {
-                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                    context.Response.ContentType = "application/json";
-
-                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-                    if (contextFeature != null)
-                    {
-                        var errors = ErrorDetail.FromException(contextFeature.Error);
-
-                        await context.Response.WriteAsync(errors.ToJson());
-                    }
-                });
-            });
-
+            app.UseExceptionHandler(env);
 
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
