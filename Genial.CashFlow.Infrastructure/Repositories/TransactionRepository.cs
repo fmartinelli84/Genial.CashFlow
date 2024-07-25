@@ -33,6 +33,81 @@ namespace Genial.CashFlow.Infrastructure.Repositories
             using var connection = this.dapperContext.CreateConnection();
 
             var sql = @"
+            SELECT 
+                c.[Id], 
+                c.[Name],
+                c.[Document]
+            FROM [Customers] AS c
+            WHERE
+                c.[Document] = @CustomerDocument;
+
+            SELECT 
+                a.[Id], 
+                a.[AgencyNumber],
+                a.[Number]
+            FROM [Customers] AS c 
+            INNER JOIN [Accounts] AS a ON a.[CustomerId] = c.Id
+            WHERE
+                c.[Document] = @CustomerDocument AND
+                a.[AgencyNumber] = @AgencyNumber AND
+                a.[Number] = @AccountNumber;
+
+            SELECT 
+                t.[Id],
+                t.[Date],
+                t.[Type],
+                t.[Description],
+                t.[Value],
+                t.[BalanceValue]
+
+                FROM [Customers] AS c 
+                INNER JOIN [Accounts] AS a ON a.[CustomerId] = c.Id
+                INNER JOIN [Transactions] AS t ON t.[AccountId] = a.Id
+            WHERE
+                c.[Document] = @CustomerDocument AND
+                a.[AgencyNumber] = @AgencyNumber AND
+                a.[Number] = @AccountNumber";
+
+            
+            request.CustomerDocument = request.CustomerDocument.OnlyNumbers()?.PadLeft(11, '0')!;
+            request.AgencyNumber = request.AgencyNumber.OnlyNumbers()?.PadLeft(4, '0')!;
+            request.AccountNumber = request.AccountNumber.OnlyNumbers()?.PadLeft(6, '0')!;
+
+            if (request.StartDate is not null)
+            {
+                request.StartDate = request.StartDate.Value.Date;
+                sql += " AND t.[Date] >= @StartDate";
+            }
+            if (request.EndDate is not null)
+            {
+                request.EndDate = request.EndDate.Value.Date.Add(new TimeSpan(23, 59, 59));
+                sql += " AND t.[Date] <= @EndDate";
+            }
+
+
+            using var gridReader = await connection.QueryMultipleAsync(sql, request);
+
+            var result = new GetStatementQueryResult()
+            {
+                Customer = gridReader.Read<CustomerDto>().FirstOrDefault()!,
+                Account = gridReader.Read<AccountDto>().FirstOrDefault()!,
+                Transactions = gridReader.Read<TransactionDto>().ToList()
+            };
+
+            if (result.Customer is null)
+                throw new NotFoundBusinessException("Cliente não encontrado.");
+
+            if (result.Account is null)
+                throw new NotFoundBusinessException("Conta Corrente não encontrada.");
+
+            return result;
+        }
+
+        public async Task<GetBalanceQueryResult> GetBalanceAsync(GetBalanceQuery request)
+        {
+            using var connection = this.dapperContext.CreateConnection();
+
+            var sql = @"
                 SELECT 
                     c.[Id], 
                     c.[Name],
@@ -57,24 +132,15 @@ namespace Genial.CashFlow.Infrastructure.Repositories
                 a.[AgencyNumber] = @AgencyNumber AND
                 a.[Number] = @AccountNumber";
 
-            
+
             request.CustomerDocument = request.CustomerDocument.OnlyNumbers()?.PadLeft(11, '0')!;
             request.AgencyNumber = request.AgencyNumber.OnlyNumbers()?.PadLeft(4, '0')!;
             request.AccountNumber = request.AccountNumber.OnlyNumbers()?.PadLeft(6, '0')!;
 
-            if (request.StartDate is not null)
-            {
-                request.StartDate = request.StartDate.Value.Date;
-                sql += " AND t.[Date] >= @StartDate";
-            }
-            if (request.EndDate is not null)
-            {
-                request.EndDate = request.EndDate.Value.Date.Add(new TimeSpan(23, 59, 59));
-                sql += " AND t.[Date] <= @EndDate";
-            }
 
 
-            var resultLookup = new Dictionary<long, GetStatementQueryResult>();
+
+            var resultLookup = new Dictionary<long, GetBalanceQueryResult>();
 
             var results = await connection
                 .QueryAsync(
@@ -89,11 +155,11 @@ namespace Genial.CashFlow.Infrastructure.Repositories
                         var customer = (CustomerDto)obj[0];
                         var account = (AccountDto)obj[1];
                         var transaction = (TransactionDto)obj[2];
-                        GetStatementQueryResult? result;
+                        GetBalanceQueryResult? result;
 
                         if (!resultLookup.TryGetValue(account.Id, out result))
                         {
-                            result = new GetStatementQueryResult()
+                            result = new GetBalanceQueryResult()
                             {
                                 Customer = customer,
                                 Account = account
@@ -103,7 +169,7 @@ namespace Genial.CashFlow.Infrastructure.Repositories
                         }
 
                         if (transaction is not null)
-                            result.Transactions.Add(transaction);
+                            result.BalanceValue = transaction.BalanceValue;
 
                         return result;
                     },
@@ -113,11 +179,6 @@ namespace Genial.CashFlow.Infrastructure.Repositories
                 throw new NotFoundBusinessException("Cliente ou conta corrente não encontrados.");
 
             return results.First();
-        }
-
-        public async Task<GetBalanceQueryResult> GetBalanceAsync(GetBalanceQuery request)
-        {
-            throw new NotImplementedException();
         }
     }
 }
