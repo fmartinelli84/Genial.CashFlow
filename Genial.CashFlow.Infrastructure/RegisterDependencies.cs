@@ -19,6 +19,7 @@ namespace Genial.CashFlow.Infrastructure
             services.AddDapper(configuration, "CashFlow");
             services.AddFluentMigrator(configuration, Assembly.GetExecutingAssembly());
 
+            services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
 
             return services;

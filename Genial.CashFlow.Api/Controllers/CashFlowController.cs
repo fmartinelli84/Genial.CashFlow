@@ -33,7 +33,7 @@ namespace Genial.CashFlow.Api.Controllers
             [FromBody] CreateTransactionCommand request,
             [FromServices] IMediator mediator)
         {
-            return await mediator.Send(request);
+            return this.Created((string?)null, await mediator.Send(request));
         }
     }
 }

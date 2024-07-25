@@ -1,11 +1,15 @@
-﻿using Dapper;
+﻿using Azure.Core;
+using Dapper;
 using Genial.CashFlow.Application.Dtos;
+using Genial.CashFlow.Application.Dtos.Commands;
 using Genial.CashFlow.Application.Dtos.Queries;
 using Genial.Framework.Data;
 using Genial.Framework.Exceptions;
 using Genial.Framework.Serialization;
+using MediatR;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -26,6 +30,32 @@ namespace Genial.CashFlow.Infrastructure.Repositories
         public TransactionRepository(DapperContext dapperContext)
         {
             this.dapperContext = dapperContext;
+        }
+
+        public async Task<TransactionDto?> GetByIdAsync(long id)
+        {
+            using var connection = this.dapperContext.CreateConnection();
+
+            var sql = @$"
+                SELECT 
+                    t.[Id],
+                    t.[Date],
+                    t.[Type],
+                    t.[Description],
+                    t.[Value],
+                    t.[BalanceValue]
+                FROM [Transactions] AS t
+                WHERE
+                    c.[Id] = @Id;";
+
+            var param = new
+            {
+                Id = id
+            };
+
+            var result = await connection.QuerySingleAsync<TransactionDto>(sql, param);
+
+            return result;
         }
 
         public async Task<GetStatementQueryResult> GetStatementAsync(GetStatementQuery request)
@@ -67,15 +97,18 @@ namespace Genial.CashFlow.Infrastructure.Repositories
                 a.[AgencyNumber] = @AgencyNumber AND
                 a.[Number] = @AccountNumber";
 
-
             if (request.StartDate is not null)
                 sql += " AND t.[Date] >= @StartDate";
 
             if (request.EndDate is not null)
                 sql += " AND t.[Date] <= @EndDate";
 
+            sql += " ORDER BY t.[Id] DESC";
 
-            using var gridReader = await connection.QueryMultipleAsync(sql, request);
+
+            var param = request;
+
+            using var gridReader = await connection.QueryMultipleAsync(sql, param);
 
             var result = new GetStatementQueryResult()
             {
@@ -124,7 +157,9 @@ namespace Genial.CashFlow.Infrastructure.Repositories
             ORDER BY t.[Id] DESC";
 
 
-            using var gridReader = await connection.QueryMultipleAsync(sql, request);
+            var param = request;
+
+            using var gridReader = await connection.QueryMultipleAsync(sql, param);
 
             var result = new GetBalanceQueryResult()
             {
@@ -134,6 +169,82 @@ namespace Genial.CashFlow.Infrastructure.Repositories
             };
 
             return result;
+        }
+
+        public async Task<TransactionDto> CreateAsync(CreateTransactionCommand request)
+        {
+            using var connection = this.dapperContext.CreateConnection();
+
+            var sql = @$"
+            INSERT INTO [Transactions] (
+                [AccountId],
+                [Date],
+                [Type],
+                [Description],
+                [Value],
+                [BalanceValue],
+                [CreatedAtDate]
+            ) VALUES (
+                (
+                    SELECT TOP 1
+                        a.[Id]
+                    FROM [Customers] AS c 
+                    INNER JOIN [Accounts] AS a ON a.[CustomerId] = c.Id
+                    WHERE
+                        c.[Document] = @CustomerDocument AND
+                        a.[AgencyNumber] = @AgencyNumber AND
+                        a.[Number] = @AccountNumber
+                ),
+                @Date,
+                @Type,
+                @Description,
+                @Value,
+                ISNULL(
+                    (SELECT TOP 1
+                        t.[BalanceValue]
+                    FROM [Customers] AS c 
+                    INNER JOIN [Accounts] AS a ON a.[CustomerId] = c.Id
+                    INNER JOIN [Transactions] AS t ON t.[AccountId] = a.Id
+                    WHERE
+                        c.[Document] = @CustomerDocument AND
+                        a.[AgencyNumber] = @AgencyNumber AND
+                        a.[Number] = @AccountNumber
+                    ORDER BY t.[Id] DESC), 0
+                ) + 
+                CASE @Type 
+                    WHEN {TransactionType.Debit:d} THEN (-@Value)
+                    WHEN {TransactionType.Credit:d} THEN (+@Value)
+                    ELSE 0
+                END,
+                @CreatedAtDate
+            );
+
+            SELECT 
+                t.[Id],
+                t.[Date],
+                t.[Type],
+                t.[Description],
+                t.[Value],
+                t.[BalanceValue]
+            FROM [Transactions] AS t
+            WHERE
+                t.[Id] = CAST(SCOPE_IDENTITY() AS BIGINT);";
+
+            var param = new 
+            { 
+                Date = DateTime.Now, 
+                Type = (byte)request.Type, 
+                Description = request.Description, 
+                Value = request.Value, 
+                CustomerDocument = request.CustomerDocument, 
+                AgencyNumber = request.AgencyNumber, 
+                AccountNumber = request.AccountNumber, 
+                CreatedAtDate = DateTime.Now
+            };
+            
+            var result = await connection.QueryFirstOrDefaultAsync<TransactionDto>(sql, param);
+
+            return result!;
         }
     }
 }
