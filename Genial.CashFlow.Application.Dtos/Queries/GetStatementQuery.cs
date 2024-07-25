@@ -13,6 +13,9 @@ namespace Genial.CashFlow.Application.Dtos.Queries
 
         public string AgencyNumber { get; set; } = null!;
         public string AccountNumber { get; set; } = null!;
+
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 
     public class GetStatementQueryResult

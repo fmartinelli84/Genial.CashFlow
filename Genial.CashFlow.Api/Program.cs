@@ -1,7 +1,6 @@
 using Genial.CashFlow.Application;
 using Genial.CashFlow.Domain;
 using Genial.CashFlow.Infrastructure;
-using Genial.CashFlow.Infrastructure.Data;
 using Genial.Framework.Api;
 using Genial.Framework.Data;
 using Genial.Framework.Logging;

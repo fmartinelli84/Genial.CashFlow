@@ -9,7 +9,7 @@ namespace Genial.CashFlow.Application.Dtos
 {
     public class AccountDto : BaseTrackableDto
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
 
         public string AgencyNumber { get; set; } = null!;
 

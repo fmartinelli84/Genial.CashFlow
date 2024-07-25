@@ -20,6 +20,6 @@ namespace Genial.CashFlow.Application.Dtos.Queries
         public CustomerDto Customer { get; set; } = null!;
         public AccountDto Account { get; set; } = null!;
 
-        public BalanceDto Balance { get; set; } = null!;
+        public decimal BalanceValue { get; set; }
     }
 }
