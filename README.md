@@ -10,7 +10,7 @@ docker-compose up
 Também é possível utilizar o Visual Studio 2022, basta abrir o arquivo ```Genial.CashFlow.sln```.
 
 ## Banco de Dados
-Este projeto utiliza FluentMigrations, o banco de dados será criado e preenchido com uma massa de dados na primeira execução.
+Este projeto utiliza FluentMigrator, o banco de dados será criado e preenchido com uma massa de dados na primeira execução.
 
 ## Acesso
 Segue abaixo uma descrição de cada container:
