@@ -47,9 +47,9 @@ namespace Genial.CashFlow.Domain.Services
             parameter.AccountNumber = parameter.AccountNumber.OnlyNumbers()?.PadLeft(6, '0')!;
         }
 
-        public void ValidateIdentificationResult(AccountIdentificationResultDto result)
+        public void ValidateIdentificationResult(AccountIdentificationResultDto? result)
         {
-            this.ValidateIdentificationResult((result.Customer is not null, result.Account is not null));
+            this.ValidateIdentificationResult((result?.Customer is not null, result?.Account is not null));
         }
 
         public void ValidateIdentificationResult((bool CustomerExists, bool AccountExists) result)

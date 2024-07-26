@@ -32,7 +32,7 @@ namespace Genial.CashFlow.Infrastructure.Repositories
             this.dapperContext = dapperContext;
         }
 
-        public async Task<(bool CustomerExists, bool AccountExists)> ExistsAsync(AccountIdentificationParameterDto identification)
+        public async Task<(bool CustomerExists, bool AccountExists)> ExistsAsync(AccountIdentificationParameterDto parameter)
         {
             using var connection = this.dapperContext.CreateConnection();
 
@@ -53,7 +53,7 @@ namespace Genial.CashFlow.Infrastructure.Repositories
                 a.[Number] = @AccountNumber;";
 
 
-            var param = identification;
+            var param = parameter;
 
             using var gridReader = await connection.QueryMultipleAsync(sql, param);
 

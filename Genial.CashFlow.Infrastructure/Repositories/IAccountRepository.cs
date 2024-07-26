@@ -6,6 +6,6 @@ namespace Genial.CashFlow.Infrastructure.Repositories
 {
     public interface IAccountRepository
     {
-        Task<(bool CustomerExists, bool AccountExists)> ExistsAsync(AccountIdentificationParameterDto identification);
+        Task<(bool CustomerExists, bool AccountExists)> ExistsAsync(AccountIdentificationParameterDto parameter);
     }
 }
