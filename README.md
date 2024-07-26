@@ -17,7 +17,7 @@ Segue abaixo uma descrição de cada container:
 
 - **genial.cashflow.api**: APIs.
   - **Endereço Swagger**: https://localhost:55901/swagger
-  - **Postman**: Utilize o arquivo **Genial.CashFlow.postman_collection.json** disponível na raiz do projeto para importar uma collection no Postman. Essa collection contém exemplos de chamadas das APIs.
+  - **Collection Postman**: Utilize o arquivo **Genial.CashFlow.postman_collection.json** disponível na pasta raiz da solution para importar uma collection no Postman. Essa collection contém exemplos de chamadas das APIs.
 
 - **genial.cashflow.logging**: Dashboard do Seq Log para visualização dos logs.
   - **Endereço**: http://localhost:55902
