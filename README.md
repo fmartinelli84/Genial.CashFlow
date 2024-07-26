@@ -1,9 +1,7 @@
 # Genial CashFlow
-
 Aplicação para conta corrente.
 
 ## Compilação e Execução
-
 Todos os pré-requisitos para compilar e executar a aplicação estão nos containers, para executar basta rodar o comando abaixo na pasta raiz da solution:
 
 ```
@@ -11,12 +9,15 @@ docker-compose up
 ```
 Também é possível utilizar o Visual Studio 2022, basta abrir o arquivo ```Genial.CashFlow.sln```.
 
-## Acesso
+## Banco de Dados
+Este projeto utiliza FluentMigrations, o banco de dados será criado e preenchido com uma massa de dados na primeira execução.
 
+## Acesso
 Segue abaixo uma descrição de cada container:
 
-- **genial.cashflow.api**: Swagger das APIs.
-  - **Endereço**: https://localhost:55901/swagger
+- **genial.cashflow.api**: APIs.
+  - **Endereço Swagger**: https://localhost:55901/swagger
+  - **Postman**: Utilize o arquivo **Genial.CashFlow.postman_collection.json** disponível na raiz do projeto para importar uma collection no Postman. Essa collection contém exemplos de chamadas das APIs.
 
 - **genial.cashflow.logging**: Dashboard do Seq Log para visualização dos logs.
   - **Endereço**: http://localhost:55902

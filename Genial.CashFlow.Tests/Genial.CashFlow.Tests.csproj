@@ -28,10 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CashFlow\Genial.CashFlow.Application.Dtos\Genial.CashFlow.Application.Dtos.csproj" />
-    <ProjectReference Include="..\CashFlow\Genial.CashFlow.Domain\Genial.CashFlow.Domain.csproj" />
-    <ProjectReference Include="..\CashFlow\Genial.CashFlow.Infrastructure\Genial.CashFlow.Infrastructure.csproj" />
-    <ProjectReference Include="..\CashFlow\Genial.Framework\Genial.Framework.csproj" />
+    <ProjectReference Include="..\Genial.CashFlow.Application.Dtos\Genial.CashFlow.Application.Dtos.csproj" />
+    <ProjectReference Include="..\Genial.CashFlow.Domain\Genial.CashFlow.Domain.csproj" />
+    <ProjectReference Include="..\Genial.CashFlow.Infrastructure\Genial.CashFlow.Infrastructure.csproj" />
+    <ProjectReference Include="..\Genial.Framework\Genial.Framework.csproj" />
   </ItemGroup>
 
 </Project>

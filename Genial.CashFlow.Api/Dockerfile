@@ -8,10 +8,11 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["Genial.CashFlow.Api/Genial.CashFlow.Api.csproj", "Genial.CashFlow.Api/"]
-COPY ["Genial.CashFlow.Business/Genial.CashFlow.Business.csproj", "Genial.CashFlow.Business/"]
-COPY ["Genial.CashFlow.Data/Genial.CashFlow.Data.csproj", "Genial.CashFlow.Data/"]
-COPY ["Genial.CashFlow.Entities/Genial.CashFlow.Entities.csproj", "Genial.CashFlow.Entities/"]
-COPY ["Genial.CashFlow.Dtos/Genial.CashFlow.Dtos.csproj", "Genial.CashFlow.Dtos/"]
+COPY ["Genial.CashFlow.Application/Genial.CashFlow.Application.csproj", "Genial.CashFlow.Application/"]
+COPY ["Genial.CashFlow.Application.Dtos/Genial.CashFlow.Application.Dtos.csproj", "Genial.CashFlow.Application.Dtos/"]
+COPY ["Genial.CashFlow.Domain/Genial.CashFlow.Domain.csproj", "Genial.CashFlow.Domain/"]
+COPY ["Genial.CashFlow.Infrastructure/Genial.CashFlow.Infrastructure.csproj", "Genial.CashFlow.Infrastructure/"]
+
 COPY ["Genial.Framework/Genial.Framework.csproj", "Genial.Framework/"]
 RUN dotnet restore "Genial.CashFlow.Api/Genial.CashFlow.Api.csproj"
 COPY . .
